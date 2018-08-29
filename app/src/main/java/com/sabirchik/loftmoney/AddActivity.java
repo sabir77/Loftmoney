@@ -11,11 +11,9 @@ import android.widget.EditText;
 public class AddActivity extends AppCompatActivity {
 
 
-
-    private EditText nameInput ;
+    private EditText nameInput;
     private EditText priceInput;
-    private Button addBtn ;
-
+    private Button addBtn;
 
 
     @Override
@@ -30,50 +28,22 @@ public class AddActivity extends AppCompatActivity {
 
         nameInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
 
-                if (! TextUtils.isEmpty(editable)){
-                    super.onCreate(savedInstanceState);
-                    setContentView(R.layout.activity_add);
-
-
-                    nameInput = findViewById(R.id.name);
-                    priceInput = findViewById(R.id.price);
-                    addBtn = findViewById(R.id."@+id/add_btn");
-
-                    nameInput.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-                        @Override
-                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-                        @Override
-                        public void afterTextChanged(Editable editable) {
-
-                            if (! TextUtils.isEmpty(editable))
-                                addBtn.setEnabled(true);
-                            else
-                                addBtn.setEnabled(false);
-
-                        }
-                    });
-                }
+                if (!TextUtils.isEmpty(editable)) {
                     addBtn.setEnabled(true);
-                else
+                } else {
                     addBtn.setEnabled(false);
 
-                addBtn.setEnabled(! TextUtils.isEmpty(editable));
-
-
-                    }
-                });
+                }
             }
         });
     }

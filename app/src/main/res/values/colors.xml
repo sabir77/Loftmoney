@@ -5,17 +5,14 @@
     <color name="colorAccent">#7ed321</color>
 
     <color name="white">#ffffff</color>
-    <color name="black">#000000</color> 
+    <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
 
     <color name="lightish_blue">#3574fa</color>
-<color name="apple_green">#7ed321</color>
+    <color name="apple_green">#7ed321</color>
 
     <color name="btn_color_enabled">#191970</color>
     <color name="btn_color_disabled">#d1ccc5</color>
-
-
-
 
 
 </resources>
