@@ -10,41 +10,34 @@ import android.widget.EditText;
 
 public class AddActivity extends AppCompatActivity {
 
-
     private EditText nameInput;
     private EditText priceInput;
     private Button addBtn;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-
         nameInput = findViewById(R.id.name);
         priceInput = findViewById(R.id.price);
         addBtn = findViewById(R.id.add_btn);
-
-        nameInput.addTextChangedListener(new TextWatcher() {
+        TextWatcher watcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                addBtn.setEnabled(!TextUtils.isEmpty(nameInput.getText().toString().trim()) &&
+                        !TextUtils.isEmpty(priceInput.getText()));
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
-                if (!TextUtils.isEmpty(editable)) {
-                    addBtn.setEnabled(true);
-                } else {
-                    addBtn.setEnabled(false);
-
-                }
             }
-        });
+        };
+        nameInput.addTextChangedListener(watcher);
+        priceInput.addTextChangedListener(watcher);
     }
 }
