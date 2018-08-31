@@ -10,6 +10,8 @@ import android.widget.EditText;
 
 public class AddActivity extends AppCompatActivity {
 
+
+
     private EditText nameInput;
     private EditText priceInput;
     private Button addBtn;
