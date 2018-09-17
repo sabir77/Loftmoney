@@ -2,6 +2,7 @@ package com.sabirchik.loftmoney;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.List;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -31,12 +39,12 @@ public class ItemsFragment extends Fragment {
     }
 
     public ItemsFragment() {
-        private Api api;
-
         // Required empty public constructor
     }
 
     private ItemsAdapter adapter;
+    private Api api;
+    private String type;
 
 
     public static ItemsFragment newInstance(String param1, String param2) {
@@ -50,14 +58,18 @@ public class ItemsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate:");
-        api = ((App) getActivity().getApplication()).getApi();
+        api = ((App) Objects.requireNonNull(getActivity()).getApplication()).getApi();
         adapter = new ItemsAdapter();
-        LoadItems();
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            type = bundle.getString(KEY_TYPE, Item.TYPE_UNKNOWN);
+        }
+        loadItems();
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView:");
         // Inflate the layout for this fragment
@@ -65,7 +77,7 @@ public class ItemsFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view,
+    public void onViewCreated(@NonNull View view,
                               @Nullable Bundle savedInstanceState) {
         Log.i(TAG, "onViewCreated:");
         super.onViewCreated(view, savedInstanceState);
@@ -89,7 +101,19 @@ public class ItemsFragment extends Fragment {
 
     }
 
-    private void LoadItems() {
+    private void loadItems() {
+        Call<List<Item>> call = api.getItems(type);
+        call.enqueue(new Callback<List<Item>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Item>> call, @NonNull Response<List<Item>> response) {
+                adapter.setItems(response.body());
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Item>> call, @NonNull Throwable t) {
+
+            }
+        });
 
     }
 

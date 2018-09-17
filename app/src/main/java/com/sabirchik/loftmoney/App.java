@@ -19,12 +19,16 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.i(TAG,:"onCreate")
-        HttpLoggingInterceptor.Level Level =if(BuildConfig)
-        interceptor.setLevel(HttpLoggingInterceptor.Level.NONE)
-        OkHttpClient client= new OkHttpClient.Builder()
+        Log.i(TAG, "onCreate");
+        HttpLoggingInterceptor.Level Level = BuildConfig.DEBUG
+                ? HttpLoggingInterceptor.Level.BODY
+                : HttpLoggingInterceptor.Level.NONE;
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(Level);
+        OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
-                .build()
+                .build();
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd: HH :mm:ss")
                 .create();
